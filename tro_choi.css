@@ -1,0 +1,65 @@
+h1 {
+  text-align: center;
+  color: greenyellow;
+}
+#game3 {
+  width: 200px;
+  transition: filter 0.3s ease;
+}
+
+.demuc3 {
+  text-decoration: none;
+  color: black;
+  align-items: center;
+  display: inline;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.muc_3 {
+  display: inline-block;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+  /* padding: 20px; Thêm padding để tạo khoảng cách bên trong */
+  margin: 50px;
+  transition: background-color 0.3s ease;
+}
+.title3 {
+  display: block;
+  text-align: center;
+  font-size: 15px;
+}
+.lien {
+  font-size: 25px;
+}
+#thong_tin {
+  margin-top: 0%;
+  margin-bottom: 0%;
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+/* Hiệu ứng khi di chuột vào .muc_1 */
+.muc_3:hover {
+  background-color: gray;
+}
+
+/* Hiệu ứng khi di chuột vào liên kết */
+.demuc3:hover {
+  color: white;
+}
+
+/* Hiệu ứng hình ảnh khi di chuột */
+.demuc3:hover #game1 {
+  filter: grayscale(100%);
+}
+.container {
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  gap: 20px; /* Khoảng cách giữa các khối */
+}
+
+.muc_3 {
+  text-align: center; /* Căn giữa nội dung bên trong mỗi khối */
+}

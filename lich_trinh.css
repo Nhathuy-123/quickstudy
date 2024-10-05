@@ -1,0 +1,85 @@
+/* nút chuyển tháng */
+/* Căn chỉnh văn bản trong */
+.calendar-container {
+  text-align: center;
+}
+/* Căn chỉnh các nút điều hướng trong */
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+/* Định dạng cho các nút chuyển tháng */
+button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+/* Hiệu ứng khi di chuột vào nút */
+button:hover {
+  background-color: #45a049;
+}
+
+h2 {
+  margin: 0 20px;
+}
+/* Cấu trúc bảng lịch */
+table {
+  width: 100%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+/* Căn chỉnh ô trong bảng */
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  width: 14.28%; /* Đảm bảo bảng có 7 cột bằng nhau */
+  height: 20px;
+}
+/* Định dạng tiêu đề của bảng (các ngày trong tuần) */
+thead th {
+  background-color: #4caf50;
+  color: white;
+}
+/* Định dạng cho các ô trong phần thân của bảng */
+tbody td {
+  background-color: #fff;
+}
+/*  Hiệu ứng khi di chuột vào các ô trong bảng */
+tbody td:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+/* thông báo */
+.popup-box {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+}
+.popup-box textarea {
+  width: 100%; /* Khung nhập liệu chiếm toàn bộ chiều rộng */
+  height: 100px; /* Tăng chiều cao khung nhập liệu */
+  margin-bottom: 15px; /* Thêm khoảng cách dưới khung nhập */
+}
+
+.popup-box button {
+  padding: 10px 20px; /* Tăng kích thước nút */
+  margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+
+.popup-box .button-container {
+  display: flex;
+  justify-content: space-between; /* Căn đều các nút */
+}

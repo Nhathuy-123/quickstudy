@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="lich_trinh.css">
+  </head>
+  <body>
+    <!--Header-->
+    <script src="script.js"></script>
+    <!--home-->
+    <div id="head">
+      <div class="muc_1">
+        <a class="demuc" href="index.html">
+          <img id="game1" src="./icon/home.png" alt="game" />
+          <br />
+          <span class="title"> Trở về </span>
+        </a>
+      </div>
+      <div class="mid">
+        <!--search-->
+        <div class="search">
+          <form id="search-form">
+            <input type="text" id="nhap_vao" placeholder="Tìm Kiếm" />
+          </form>
+          <!--Game-->
+          <div class="main">
+            <div class="muc_1" class="main">
+              <a class="demuc" href="tro_choi.html">
+                <img id="game1" src="./icon/Game.png" alt="game" />
+                <br />
+                <span class="title"> Trò chơi </span>
+              </a>
+            </div>
+          </div>
+          <!--community-->
+          <div class="muc_1">
+            <a class="demuc" href="cong_dong.html">
+              <img id="game1" src="./icon/community.png" alt="game" />
+              <br />
+              <span class="title"> Cộng đồng </span>
+            </a>
+          </div>
+          <!--timetable-->
+          <div class="muc_1">
+            <a class="demuc" href="lich_trinh.html">
+              <img id="game1" src="./icon/timetable.png" alt="game" />
+              <br />
+              <span class="title"> Lịch trình </span>
+            </a>
+          </div>
+          <!--Liên hệ-->
+          <div class="muc_1">
+            <a class="demuc" href="lienhe.html">
+              <img id="game1" src="./icon/phone.png" alt="game" />
+              <br />
+              <span class="title"> Liên hệ </span>
+            </a>
+          </div>
+          <!--thong báo-->
+          <div class="muc_2" title="Thông báo">
+            <a class="demuc0" href="#" onclick="toggleNotification()">
+              <img id="game1" src="./icon/chuong.png" alt="Thông báo" />
+            </a>
+            <div id="notification-box" class="hidden">
+              <!-- Thông báo sẽ được thêm vào đây -->
+            </div>
+          </div>
+          
+          
+          <div><!-- <div id="search-results"></div> --></div>
+        </div>
+        <!--sign up -->
+        <a href="./dangnhap.html" class="dang_nhap">Đăng nhập</a>
+      </div>
+      <br />
+      </div>
+        <!--sign up -->
+        <a href="./dangky.html" class="dang_ky">Đăng ký</a>
+      </div>
+    </div>
+    <hr />
+    <div class="calendar-container">
+      <div class="navigation">
+        <button id="prev-month">Tháng Trước</button>
+        <h2 id="month-year"></h2>
+        <button id="next-month">Tháng Sau</button>
+      </div>
+      <table class="calendar">
+        <thead>
+          <tr>
+            <th>CN</th>
+            <th>T2</th>
+            <th>T3</th>
+            <th>T4</th>
+            <th>T5</th>
+            <th>T6</th>
+            <th>T7</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-body">
+          <!-- Các ngày sẽ được thêm vào đây bởi JavaScript -->
+        </tbody>
+      </table>
+    </div>
+    
+
+    <script src="lich_trinh.js"></script>
+    <script src="script.js"></script>
+    <script src="thong_bao.js"></script>
+  </body>
+</html>

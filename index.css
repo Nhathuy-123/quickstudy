@@ -1,0 +1,38 @@
+/* diem danh */
+legend {
+  text-align: center;
+}
+#diem_danh {
+  width: 100px;
+  height: 200px;
+  margin-left: 50px;
+}
+/* tìm kiếm */
+.search-container {
+  margin-top: 50px;
+  text-align: center;
+}
+#diem_danh {
+  width: 200px;
+  background-color: white;
+}
+#ngayThang {
+  font-size: 20px; /* Thay đổi kích thước font chữ tại đây */
+  color: black; /* Thay đổi màu sắc nếu cần */
+  text-align: center;
+}
+#diemDanhBtn {
+  width: 100px;
+  background-color: rgb(119, 119, 212);
+  border-radius: 10%;
+  border: 0px;
+  /* display: flex; Sử dụng flexbox */
+  display: block;
+  margin: auto;
+}
+#diemDanhBtn:hover {
+  background-color: rgb(31, 25, 202);
+}
+#soNgayLienTiep {
+  text-align: center;
+}

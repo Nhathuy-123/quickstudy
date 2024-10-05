@@ -1,0 +1,220 @@
+document.addEventListener("DOMContentLoaded", function () {
+  let currentMonth = new Date().getMonth();
+  let currentYear = new Date().getFullYear();
+  const monthYear = document.getElementById("month-year");
+  const calendarBody = document.getElementById("calendar-body");
+
+  const prevMonthBtn = document.getElementById("prev-month");
+  const nextMonthBtn = document.getElementById("next-month");
+  const notificationBox = document.getElementById("notification-box"); // Box thông báo
+
+  const today = new Date(); // Lấy ngày hiện tại
+  const months = [
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12",
+  ];
+
+  function updateMonthYear() {
+    monthYear.innerHTML = `${months[currentMonth]} - ${currentYear}`;
+  }
+
+  function getDaysInMonth(month, year) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function loadSavedEvents() {
+    const savedEvents = JSON.parse(localStorage.getItem("events")) || {};
+    return savedEvents;
+  }
+
+  function saveEvent(dateKey, event) {
+    const savedEvents = loadSavedEvents();
+    if (event) {
+      savedEvents[dateKey] = event;
+    } else {
+      delete savedEvents[dateKey];
+    }
+    localStorage.setItem("events", JSON.stringify(savedEvents));
+  }
+
+  function showNotification(dateKey) {
+    const savedEvents = loadSavedEvents();
+    notificationBox.innerHTML = ""; // Xóa thông báo cũ
+    if (savedEvents[dateKey]) {
+      const notificationItem = document.createElement("div");
+      const eventContent = savedEvents[dateKey].replace(/\n/g, "<br>");
+      notificationItem.innerHTML = `Ngày ${dateKey}:<br>${eventContent}`;
+      notificationBox.appendChild(notificationItem);
+    } else {
+      notificationBox.innerHTML = `Ngày ${dateKey}: Không có sự kiện nào.`;
+    }
+  }
+
+  function generateCalendar(month, year) {
+    calendarBody.innerHTML = "";
+
+    const firstDay = new Date(year, month).getDay();
+    const daysInMonth = getDaysInMonth(month, year);
+    let date = 1;
+    const savedEvents = loadSavedEvents();
+
+    for (let i = 0; i < 6; i++) {
+      const row = document.createElement("tr");
+
+      for (let j = 0; j < 7; j++) {
+        const cell = document.createElement("td");
+        if (i === 0 && j < firstDay) {
+          cell.innerHTML = "";
+        } else if (date > daysInMonth) {
+          cell.innerHTML = "";
+        } else {
+          const dateKey = `${year}-${month + 1}-${date}`; // Định dạng ngày
+          cell.innerHTML = date;
+          cell.setAttribute("data-date", date);
+
+          if (savedEvents[dateKey]) {
+            const marker = document.createElement("span");
+            marker.textContent = "•";
+            marker.style.color = "red";
+            marker.style.fontSize = "24px";
+            cell.appendChild(marker);
+          }
+
+          // Hiển thị textarea khi nhấn vào ngày
+          cell.addEventListener("click", function () {
+            const originalDate = date; // Lưu ngày gốc
+            const textarea = document.createElement("textarea");
+            textarea.value = savedEvents[dateKey] || ""; // Giá trị mặc định là sự kiện đã lưu
+            textarea.rows = 3; // Cho phép nhập nhiều dòng
+            textarea.cols = 15;
+
+            const saveButton = document.createElement("button");
+            saveButton.textContent = "Lưu"; // Nút lưu
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Xóa"; // Nút xóa
+
+            cell.innerHTML = ""; // Xóa nội dung cũ
+            cell.appendChild(textarea);
+            cell.appendChild(saveButton);
+            cell.appendChild(deleteButton);
+            textarea.focus();
+
+            // Khi nhấn nút Lưu
+            saveButton.addEventListener("click", function () {
+              const event = textarea.value;
+              saveEvent(dateKey, event); // Lưu sự kiện
+
+              // Cập nhật lại ô ngày
+              cell.innerHTML = originalDate;
+
+              // Thêm marker nếu có sự kiện
+              if (event) {
+                const marker = document.createElement("span");
+                marker.textContent = "•";
+                marker.style.color = "red";
+                marker.style.fontSize = "24px";
+                cell.appendChild(marker);
+              }
+
+              // Tự động cập nhật thông báo khi lưu sự kiện cho ngày hiện tại
+              if (
+                date === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear()
+              ) {
+                if (event) {
+                  showNotification(dateKey);
+                } else {
+                  notificationBox.innerHTML = ""; // Xóa thông báo nếu không có sự kiện
+                }
+              }
+            });
+
+            // Khi nhấn nút Xóa
+            deleteButton.addEventListener("click", function () {
+              saveEvent(dateKey, ""); // Xóa sự kiện khỏi localStorage
+              cell.innerHTML = originalDate; // Đặt lại số ngày ban đầu
+
+              // Xóa marker nếu có
+              const existingMarker = cell.querySelector("span");
+              if (existingMarker) {
+                cell.removeChild(existingMarker);
+              }
+
+              // Tự động cập nhật thông báo khi xóa sự kiện cho ngày hiện tại
+              if (
+                date === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear()
+              ) {
+                notificationBox.innerHTML = ""; // Xóa thông báo nếu không có sự kiện
+              }
+            });
+          });
+
+          // Tự động hiển thị thông báo cho ngày hôm nay khi trang được tải
+          if (
+            date === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear()
+          ) {
+            if (savedEvents[dateKey]) {
+              showNotification(dateKey);
+            } else {
+              notificationBox.innerHTML = `Ngày ${dateKey}: Không có sự kiện nào.`;
+            }
+          }
+
+          date++;
+        }
+        row.appendChild(cell);
+      }
+      calendarBody.appendChild(row);
+    }
+  }
+
+  // Thêm nút "Xóa Tất Cả" để xóa toàn bộ sự kiện
+  const clearAllButton = document.createElement("button");
+  clearAllButton.textContent = "Xóa Tất Cả";
+  document.body.appendChild(clearAllButton); // Thêm nút vào cuối body
+
+  clearAllButton.addEventListener("click", function () {
+    localStorage.removeItem("events"); // Xóa tất cả sự kiện khỏi localStorage
+    generateCalendar(currentMonth, currentYear); // Cập nhật lại lịch
+    notificationBox.innerHTML = ""; // Xóa thông báo trong box
+  });
+
+  prevMonthBtn.addEventListener("click", function () {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    updateMonthYear();
+    generateCalendar(currentMonth, currentYear);
+  });
+
+  nextMonthBtn.addEventListener("click", function () {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    updateMonthYear();
+    generateCalendar(currentMonth, currentYear);
+  });
+
+  updateMonthYear();
+  generateCalendar(currentMonth, currentYear);
+});
